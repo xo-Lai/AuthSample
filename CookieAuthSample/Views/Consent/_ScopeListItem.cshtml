@@ -1,0 +1,35 @@
+﻿@using CookieAuthSample.ViewModels;
+@model ScopeViewModel
+
+<li>
+    <label>
+
+        <input type="checkbox"
+               name="ScopeConsented"
+               id="scope_@Model.Name"
+               value="@Model.Name"
+               checked="@Model.Checked"
+               disabled="@Model.Required" />
+        @if (Model.Required)
+        {
+            <input type="hidden" name="ScopeConsented" value="@Model.Name"/>
+
+        }
+        <strong>@Model.Name</strong>
+        @if (Model.Emphasize)
+            {
+            <span class="glyphicon glyphicon-exclamation-sign">
+
+            </span>
+
+        }
+    </label>
+    @if (string.IsNullOrWhiteSpace(Model.Description))
+    {
+        <div>
+            <label for="scope_@Model.Name"> @Model.Description</label>
+
+            </div>
+
+    }
+</li>
