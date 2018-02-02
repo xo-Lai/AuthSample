@@ -4,9 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CookieAuthSample.ViewModels;
-using IdentityServer4.Stores;
-using IdentityServer4.Services;
-using IdentityServer4.Models;
 using CookieAuthSample.Services;
 
 namespace CookieAuthSample.Controllers

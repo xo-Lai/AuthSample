@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using CookieAuthSample.Models;
 using Microsoft.AspNetCore.Identity;
 using CookieAuthSample.Services;
-
+using IdentityServer4.Services;
 
 namespace CookieAuthSample
 {
@@ -42,7 +42,8 @@ namespace CookieAuthSample
                 .AddInMemoryClients(Config.GetClients())
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
-              .AddAspNetIdentity<ApplicationUser>();
+              .AddAspNetIdentity<ApplicationUser>()
+              .Services.AddScoped<IProfileService, ProfileService>();
 
 
 
@@ -52,12 +53,12 @@ namespace CookieAuthSample
             //    {
             //        option.LoginPath = "/Account/Login";
             //    });
-            //services.Configure<IdentityOptions>(option =>
-            //{
-            //    option.Password.RequireLowercase = false;
-            //    option.Password.RequireNonAlphanumeric = false;
-            //    option.Password.RequireUppercase = false;
-            //});
+            services.Configure<IdentityOptions>(option =>
+            {
+                option.Password.RequireLowercase = false;
+                option.Password.RequireNonAlphanumeric = false;
+                option.Password.RequireUppercase = false;
+            });
 
             services.AddScoped<ConsentService>();
             services.AddMvc();

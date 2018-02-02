@@ -22,12 +22,12 @@ namespace CookieAuthSample
             {
                 new Client
                 {
-                    ClientId="mvc",
+                    ClientId="api",
                     ClientName="Mvc Client",
                     ClientUri="http://localhost:5001",
                     LogoUri="https://chocolatey.org/content/packageimages/aspnetcore-runtimepackagestore.2.0.0.png",
                     AllowRememberConsent=true,
-                   
+
 
                     AllowedGrantTypes=GrantTypes.Implicit,
                     ClientSecrets={
@@ -36,10 +36,39 @@ namespace CookieAuthSample
                     RequireConsent=true,
                     RedirectUris={"http://localhost:5001/signin-oidc"},
                     PostLogoutRedirectUris={"http://localhost:5001/signout-callback-oidc"},
+                    AlwaysIncludeUserClaimsInIdToken=true,
                     AllowedScopes={
-                       IdentityServerConstants.StandardScopes.Profile                       ,
+                       IdentityServerConstants.StandardScopes.Profile,
                        IdentityServerConstants.StandardScopes.OpenId,
                        IdentityServerConstants.StandardScopes.Email
+                    }
+                },
+                 new Client
+                {
+                    ClientId="mvc",
+                    ClientName="Mvc Client",
+                    ClientUri="http://localhost:5001",
+                    LogoUri="https://chocolatey.org/content/packageimages/aspnetcore-runtimepackagestore.2.0.0.png",
+                    AllowRememberConsent=true,
+
+
+                    AllowedGrantTypes=GrantTypes.HybridAndClientCredentials,
+                    ClientSecrets=new List<Secret>{
+                        new Secret("secret".Sha256())
+                    },
+                    AllowOfflineAccess=true,
+                    AllowAccessTokensViaBrowser=true,
+                    RefreshTokenExpiration=TokenExpiration.Sliding,
+                    SlidingRefreshTokenLifetime=60*60,
+                    RedirectUris={"http://localhost:5001/signin-oidc"},
+                    PostLogoutRedirectUris={"http://localhost:5001/signout-callback-oidc"},
+                    AlwaysIncludeUserClaimsInIdToken=true,
+                    AllowedScopes={
+                       IdentityServerConstants.StandardScopes.Profile,
+                       IdentityServerConstants.StandardScopes.OpenId,
+                       IdentityServerConstants.StandardScopes.Email,
+                       IdentityServerConstants.StandardScopes.OfflineAccess,
+                       "api1"
                     }
                 },
             };
